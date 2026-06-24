@@ -48,7 +48,7 @@ function createTimer(scene: Scene) {
     text: "0m:00s",
 
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 42,
@@ -111,7 +111,7 @@ function createButtons(scene: GameScene<MyLevelData>) {
     activeText: "Hint",
     textOffset: vec(0, -5),
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 18,

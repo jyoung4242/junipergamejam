@@ -8,6 +8,7 @@ import { EndGameScene } from "./Scenes/end";
 import { TitleScene } from "./Scenes/title";
 import { JsfxrResource, SoundConfig } from "@excaliburjs/plugin-jsfxr";
 import { sounds } from "./Sounds/sounds";
+import { Loader } from "./Scenes/loader";
 
 const game = new Engine({
   width: 800, // the width of the canvas
@@ -15,6 +16,7 @@ const game = new Engine({
   displayMode: DisplayMode.Fixed, // the display mode
   pixelArt: true,
   scenes: {
+    loader: new Loader(Resources),
     title: new TitleScene(),
     game: new GameScene<MyLevelData>(),
     end: new EndGameScene<PuzzleStats>(),
@@ -36,7 +38,7 @@ for (const sound in sounds) {
   sndPlugin.loadSoundConfig(sound, sounds[sound]);
 }
 
-await game.start(loader);
+await game.start();
 // game.goToScene("game", { sceneActivationData: { difficulty: "easy" } });
 // game.goToScene("end", {
 //   sceneActivationData: {
@@ -49,4 +51,4 @@ await game.start(loader);
 //     },
 //   },
 // });
-game.goToScene("title");
+game.goToScene("loader");
