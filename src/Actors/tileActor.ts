@@ -89,6 +89,8 @@ export class TileActor extends Actor {
   };
 
   onAdd(): void {
+    console.log(this.id, "onadd");
+
     this.on("pointerup", this.clickHandler);
   }
 
@@ -97,6 +99,7 @@ export class TileActor extends Actor {
   }
 
   clickHandler = (evt: PointerEvent) => {
+    debugger;
     if (this.isSwapping) return;
     this.clickSignal.send();
     if (this.inWinningPosition) {

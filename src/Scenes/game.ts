@@ -9,6 +9,7 @@ import { setupGameUI } from "../UI/gameSceneUI";
 import { UIProgressBar, UISpriteProgressBar } from "../UI/progressBar";
 import { sndPlugin, soundManager } from "../main";
 import { MachineGeneration } from "../Lib/machineGen";
+import { UIFocusManager } from "../UI/uiFocusManager";
 
 type Rotation = 0 | 90 | 180 | 270;
 const EasyRowsCols = 3;

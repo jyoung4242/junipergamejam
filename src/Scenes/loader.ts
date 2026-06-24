@@ -98,12 +98,8 @@ export class Loader extends DefaultSceneLoader {
     };
     const hintButton = new UISpriteButton(hintButtonConfig);
 
-    hintButton.onKeyUp = () => {
-      sndPlugin.playSound("click");
-      this.engine.goToScene("title");
-    };
-
     this.add(hintButton);
+    hintButton.focus();
   }
 
   onDeactivate(context: SceneActivationContext) {

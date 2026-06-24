@@ -19,6 +19,7 @@ import { UILabel, UILabelConfig } from "./label";
 import { Resources } from "../resources";
 import { TitleScene } from "../Scenes/title";
 import { sndPlugin } from "../main";
+import { UIFocusManager } from "./uiFocusManager";
 
 export function setupTitleGameUI(scene: TitleScene) {
   buildAnalyticsPanel(scene);
@@ -47,12 +48,12 @@ const buildAnalyticsPanel = (scene: TitleScene) => {
     },
   };
   const analyticsPanel = new UINineSlicePanel(analyticsPanelConfig);
-  addReturnButton(analyticsPanel);
+  addReturnButton(analyticsPanel, scene.fcsmanager as UIFocusManager);
   addAnalyticsBorder(analyticsPanel, scene);
   scene.add(analyticsPanel);
 };
 
-const addReturnButton = (panel: UINineSlicePanel) => {
+const addReturnButton = (panel: UINineSlicePanel, fm: UIFocusManager) => {
   const easyButtonConfig: UISpriteButtonConfig = {
     name: "returnbutton",
     width: 110,
@@ -81,6 +82,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
         textAlign: TextAlign.Center,
       }),
     },
+    tabStopIndex: 0,
   };
   const easyButton = new UISpriteButton(easyButtonConfig);
   panel.addChild(easyButton);
@@ -113,6 +115,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
         textAlign: TextAlign.Center,
       }),
     },
+    tabStopIndex: 1,
   };
   const MediumButton = new UISpriteButton(MediumButtonConfig);
   panel.addChild(MediumButton);
@@ -145,9 +148,13 @@ const addReturnButton = (panel: UINineSlicePanel) => {
         textAlign: TextAlign.Center,
       }),
     },
+    tabStopIndex: 2,
   };
   const hardButton = new UISpriteButton(hardButtonConfig);
+
   panel.addChild(hardButton);
+  fm.register([easyButton, MediumButton, hardButton]);
+  fm.setFocus(easyButton);
 };
 
 const addAnalyticsBorder = (panel: UINineSlicePanel, scene: TitleScene) => {
