@@ -14,9 +14,11 @@ export class TileActor extends Actor {
   borderActor: BorderActor;
   tileSignal = new Signal("tileselect");
   swapSignal = new Signal("tileswap");
+  swapComplete = new Signal("swapComplete");
   clickSignal = new Signal("clickSignal");
   rotateSignal = new Signal("rotation");
   newPos: Vector | null = null;
+  isSwapping: boolean = false;
 
   clickEnable: boolean = true;
   enabled: boolean = false;
@@ -42,6 +44,7 @@ export class TileActor extends Actor {
 
   onInitialize(engine: Engine): void {
     this.swapSignal.listen((params: any) => {
+      this.isSwapping = true;
       //get tile params from params
       const [tile1, tile2] = params.detail.params;
       if (tile1.id == this.id) {
@@ -53,11 +56,19 @@ export class TileActor extends Actor {
       this.selectState = "UNSELECTED";
       engine.clock.schedule(this.swapTile, 250);
     });
+    this.swapComplete.listen(() => {
+      this.isSwapping = false;
+    });
   }
 
   swapTile = () => {
     if (!this.newPos) throw new Error("pad vector for newpos");
-    this.actions.moveTo({ pos: this.newPos, duration: 500 });
+    this.actions
+      .moveTo({ pos: this.newPos, duration: 500 })
+      .toPromise()
+      .then(() => {
+        this.swapComplete.send();
+      });
     this.selectState = "UNSELECTED";
     this.borderActor.changeState("idle");
   };
@@ -88,6 +99,7 @@ export class TileActor extends Actor {
   }
 
   clickHandler = (evt: PointerEvent) => {
+    if (this.isSwapping) return;
     this.clickSignal.send();
     if (this.inWinningPosition) {
       sndPlugin.playSound("bad");

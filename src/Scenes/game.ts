@@ -186,6 +186,8 @@ export class GameScene<T extends MyLevelData> extends Scene {
     this.levelImage = await MachineGeneration.generateImage();
     //***********************************************************/
 
+    this.puzzleActor.updatePuzzleActorImage(this.levelImage);
+
     // init puzzleState
     // based on difficulty level, determine rows and cols
     this.puzzleState = {
