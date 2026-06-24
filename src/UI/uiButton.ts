@@ -10,6 +10,7 @@ import {
   KeyEvent,
   Keys,
   PointerEvent,
+  Scene,
   ScreenElement,
   Sprite,
   TextOptions,
@@ -655,12 +656,25 @@ export class UISpriteButton
    * @param engine - The engine instance.
    */
   onRemove(engine: Engine): void {
+    console.log("remove");
+
     this.off("pointerenter", this.onHover);
     this.off("pointerleave", this.onUnhover);
     this.off("pointerdown", this.onPointerDown);
     this.off("pointerup", this.onClick);
     engine.input.keyboard.off("press", this.onKeyDown);
     engine.input.keyboard.off("release", this.onKeyUp);
+  }
+
+  onPreKill(scene: Scene): void {
+    console.log("remove");
+
+    this.off("pointerenter", this.onHover);
+    this.off("pointerleave", this.onUnhover);
+    this.off("pointerdown", this.onPointerDown);
+    this.off("pointerup", this.onClick);
+    scene.engine.input.keyboard.off("press", this.onKeyDown);
+    scene.engine.input.keyboard.off("release", this.onKeyUp);
   }
 
   /**

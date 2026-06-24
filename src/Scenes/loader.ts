@@ -25,7 +25,7 @@ import { UIImage } from "../UI/uiImage";
 import bigGear from "../Assets/gear.png";
 
 export class Loader extends DefaultSceneLoader {
-  button: UIButton | null = null;
+  button: UISpriteButton | null = null;
   pbar: UIProgressBar | null = null;
   label: UILabel | null = null;
   exImage: ImageSource;
@@ -80,6 +80,8 @@ export class Loader extends DefaultSceneLoader {
         disabled: Resources.buttonNormal.toSprite(),
       },
       callback: () => {
+        console.log("loader ");
+
         sndPlugin.playSound("click");
         this.engine.goToScene("title");
       },
@@ -96,10 +98,10 @@ export class Loader extends DefaultSceneLoader {
         }),
       },
     };
-    const hintButton = new UISpriteButton(hintButtonConfig);
+    this.button = new UISpriteButton(hintButtonConfig);
 
-    this.add(hintButton);
-    hintButton.focus();
+    this.add(this.button);
+    this.button.focus();
   }
 
   async onActivate(ctx: SceneActivationContext): Promise<void> {
@@ -110,6 +112,8 @@ export class Loader extends DefaultSceneLoader {
     this.entities.forEach(ent => {
       ent.kill();
     });
+    this.button = null;
+    console.log("onDeac");
   }
 
   // Display the start button after resources are loaded
@@ -120,7 +124,7 @@ export class Loader extends DefaultSceneLoader {
       if (!this.label) return;
       this.label.setText("Click Play to Begin!");
       this.label.pos.x = 250;
-      resolve();
+      // resolve();
     });
   }
 

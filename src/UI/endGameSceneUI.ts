@@ -54,7 +54,6 @@ const addReturnButton = (panel: UINineSlicePanel) => {
     },
     callback: () => {
       sndPlugin.playSound("click");
-      console.trace("game end -> how did i get here");
       panel.scene?.engine.goToScene("title");
     },
     idleText: "Play Again",
@@ -71,6 +70,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
     },
   };
   const returnButton = new UISpriteButton(returnButtonConfig);
+  returnButton.focus();
   panel.addChild(returnButton);
 };
 
