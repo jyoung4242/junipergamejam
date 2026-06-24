@@ -1,4 +1,4 @@
-import { Color, Engine, Font, Scene, ScreenElement, TextAlign, vec, Vector } from "excalibur";
+import { Color, Engine, Font, Scene, TextAlign, vec, Vector } from "excalibur";
 import { UISpriteProgressBar, UISpriteProgressBarConfig } from "./progressBar";
 import { Resources } from "../resources";
 import { UISpritePanel, UISpritePanelConfig } from "./panel";

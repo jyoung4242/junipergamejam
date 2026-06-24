@@ -246,9 +246,7 @@ export class MachineGeneration {
       let cData = machineGrid.getCell(9, i);
       if (!cData) throw new Error("bad cell");
       cData.role = "floor";
-      //   console.log(cData);
     }
-    console.log("floor", machineGrid.cells[9]);
 
     // #endregion floor
 
@@ -259,7 +257,6 @@ export class MachineGeneration {
     let freespaces = 10 - numBaseTiles;
     // start assigning floortiles based on num and freespaces
     let startingpoint = rng.integer(0, freespaces);
-    console.log(`Metrics: numbase: ${numBaseTiles}, freespaces: ${freespaces}, startingpoint: ${startingpoint}`);
     let loopIndex = startingpoint;
 
     for (let i = 0; i < numBaseTiles; i++) {
@@ -268,7 +265,6 @@ export class MachineGeneration {
       cData.role = "base";
       loopIndex++;
     }
-    console.log("base", machineGrid.cells[8]);
 
     // #endregion base
 
@@ -277,7 +273,6 @@ export class MachineGeneration {
     let heights = Array.from({ length: numBaseTiles }, () => {
       return rng.integer(2, 7);
     });
-    console.log("height array", heights);
     // #endregion heights
 
     // #region machine shape
@@ -296,7 +291,6 @@ export class MachineGeneration {
       loopIndex++;
     }
 
-    console.log("heights in machine", machineGrid.cells);
     // #endregion machine shape
 
     // #region detect exterior tiles
@@ -334,18 +328,14 @@ export class MachineGeneration {
 
     heights.forEach((height, index) => {
       let rslt = rng.integer(0, 10);
-      //   console.log(`rsult: ${rslt}, height: ${height}`);
       if (rslt < 4 && height > 2) {
         // make a cell in that column a support leg
         let spotIndex = rng.integer(0, height - 2);
-        // console.log(height, index, supportX, supportY, spotIndex);
-        // console.log(`height: ${height}, index: ${index}, supportX: ${supportX}, supportY: ${supportY}, spotindex: ${spotIndex}`);
         let cData = machineGrid.getCell(supportY - spotIndex, supportX + index);
         if (!cData) throw new Error("bad cell");
         supportLegsCoords.push({ x: supportX + index, y: supportY - spotIndex });
       }
     });
-    console.log("support legs in machine", machineGrid.cells);
     //#endregion supportLegs
 
     // #region interior components
@@ -358,7 +348,6 @@ export class MachineGeneration {
           let component = rng.pickOne(panelSprites) as ImageSource;
           cell.components = component;
         }
-        // console.log("assignaing cell interior component: ", cell);
       }
     });
 
@@ -378,7 +367,6 @@ export class MachineGeneration {
 
     // #endregion exterior components
 
-    console.log("final machine", machineGrid.cells);
     // draw the machine
     machineGrid.draw(ctx);
     machineGrid.drawSupportLegs(ctx, supportLegsCoords);
@@ -461,7 +449,6 @@ class MachineGrid {
 
     const n = this.getNeighborMap(row, col);
     const mask = this.getNeighborMask(row, col);
-    // console.log(row, col, cell.role, mask);
 
     let tilecoords;
     let sprite;
@@ -511,36 +498,19 @@ class MachineGrid {
       case "floor":
         break;
     }
-
-    // if (this.isSupportLegAbove(row, col)) {
-    //   const supportTile = this.grabTileFromTileset(tileset, 6, 0);
-    //   cnv.drawImage(supportTile, x, y);
-    // }
-
-    // cnv.fillRect(x, y, this.cellSize, this.cellSize);
-
-    // // Optional grid lines
-    // cnv.strokeStyle = "#222";
-    // cnv.strokeRect(x, y, this.cellSize, this.cellSize);
   }
 
   drawSupportLegs(cnv: CanvasRenderingContext2D, slCoords: TileCoords[]) {
     let tileset = Resources.tilset.image;
     let bground = Resources.background.image;
-    console.log(slCoords);
 
     slCoords.forEach(cell => {
       //grab proper tile, either
       let tile;
       const x = cell.x * this.cellSize;
       const y = cell.y * this.cellSize;
-      //const supportTile = this.grabTileFromTileset(tileset, 7, 0);
-      //const supportTile = this.grabTileFromTileset(tileset, 8, 0);
-      //const supportTile = this.grabTileFromTileset(tileset, 9, 0);
-      //const supportTile = this.grabTileFromTileset(tileset, 9,1);
 
       let neighbors = this.getNeighbors(cell.y, cell.x);
-      console.log(neighbors, neighbors.left?.role, neighbors.right?.role);
 
       if (neighbors.left && neighbors.left.role != "empty" && neighbors.right && neighbors.right.role != "empty") {
         //both

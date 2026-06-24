@@ -105,13 +105,11 @@ export class GameScene<T extends MyLevelData> extends Scene {
 
       if (state == "SELECTED") {
         //check selectedTiles
-        // debugger;
         if (this.selectedTiles.first == null) {
           this.selectedTiles.first = tile;
         } else {
           this.selectedTiles.second = tile;
           // swap tiles
-          // debugger;
           this.puzzleStats.swaps++;
           sndPlugin.playSound("swap");
           this.swapSignal.send([this.selectedTiles.first, this.selectedTiles.second]);
@@ -135,20 +133,12 @@ export class GameScene<T extends MyLevelData> extends Scene {
     });
 
     this.gameOverSignal.listen(() => {
-      console.log("clicks: ", this.puzzleStats.clicks);
-      console.log("swaps: ", this.puzzleStats.swaps);
-      console.log("rotations: ", this.puzzleStats.rotations);
       const duration = this.puzzleStats.completionTime - this.puzzleStats.startTime;
       const hours = Math.floor(duration / 3_600_000);
       const minutes = Math.floor((duration % 3_600_000) / 60_000);
       const seconds = Math.floor((duration % 60_000) / 1_000);
       const milliseconds = duration % 1_000;
       engine.goToScene("end", { sceneActivationData: { stats: this.puzzleStats } });
-      console.log(
-        `Puzzle completed in ${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
-          .toString()
-          .padStart(2, "0")}.${milliseconds.toString().padStart(3, "0")}`,
-      );
     });
   }
 

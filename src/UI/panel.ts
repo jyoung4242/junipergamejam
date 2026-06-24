@@ -111,8 +111,6 @@ export class UIPanel extends DisplayUIComponent<UIPanelConfig, UIPanelEvents> im
    * @param engine - The engine instance.
    */
   onAdd(engine: Engine): void {
-    console.log("running parent onadd");
-
     // Ensure visibility state is correct
     if (!this._visible) {
       this.graphics.isVisible = false;
@@ -133,8 +131,6 @@ export class UIPanel extends DisplayUIComponent<UIPanelConfig, UIPanelEvents> im
   }
 
   onHover = (): void => {
-    console.log("base hover");
-
     if (!this._isHovered) {
       this._isHovered = true;
       this.emitter.emit("UIPanelHovered", { name: this.name, target: this, event: "hovered" });

@@ -1,4 +1,4 @@
-import { Actor, Engine, Sprite, vec, Vector, PointerEvent, Buttons, Rectangle, Color, toRadians, toDegrees } from "excalibur";
+import { Actor, Engine, Sprite, vec, Vector, PointerEvent, Rectangle, Color, toRadians } from "excalibur";
 import { TileInitData } from "../Scenes/game";
 import { Signal } from "../Lib/Signals";
 import { sndPlugin } from "../main";
@@ -93,8 +93,6 @@ export class TileActor extends Actor {
   }
 
   onRemove(): void {
-    console.log("removing handler");
-
     this.off("pointerup", this.clickHandler);
   }
 
@@ -109,7 +107,6 @@ export class TileActor extends Actor {
     if (evt.button == "Left") {
       sndPlugin.playSound("tileselect");
       this.toggle();
-      console.log("tile clicked");
 
       this.tileSignal.send([this, this.selectState]);
     } else if (evt.button == "Right") {
