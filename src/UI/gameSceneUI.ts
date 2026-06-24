@@ -121,6 +121,39 @@ function createButtons(scene: GameScene<MyLevelData>) {
   };
   const hintButton = new UISpriteButton(hintButtonConfig);
   scene.add(hintButton);
+
+  const gobackButtonConfig: UISpriteButtonConfig = {
+    name: "hintbutton",
+    width: 110,
+    height: 39,
+    pos: vec(25, 100),
+    z: 100,
+    sprites: {
+      idle: Resources.buttonNormal.toSprite(),
+      pressed: Resources.buttonPressed.toSprite(),
+      hovered: Resources.buttonNormal.toSprite(),
+      disabled: Resources.buttonNormal.toSprite(),
+    },
+    callback: () => {
+      if (!scene.levelImage) throw new Error("bad image");
+      sndPlugin.playSound("click");
+      scene.engine.goToScene("title");
+    },
+    idleText: "Go Back",
+    hoveredText: "Go Back",
+    activeText: "Go Back",
+    textOffset: vec(0, -5),
+    textOptions: {
+      color: Color.fromHex("#101C00"),
+      font: new Font({
+        family: "deiselFont",
+        size: 18,
+        textAlign: TextAlign.Center,
+      }),
+    },
+  };
+  const gobackButton = new UISpriteButton(gobackButtonConfig);
+  scene.add(gobackButton);
 }
 
 export function setupGameUI(scene: GameScene<MyLevelData>) {
