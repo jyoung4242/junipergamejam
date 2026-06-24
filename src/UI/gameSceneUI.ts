@@ -110,6 +110,7 @@ function createButtons(scene: GameScene<MyLevelData>) {
     hoveredText: "Hint",
     activeText: "Hint",
     textOffset: vec(0, -5),
+    tabStopIndex: 0,
     textOptions: {
       color: Color.fromHex("#101C00"),
       font: new Font({
@@ -128,6 +129,7 @@ function createButtons(scene: GameScene<MyLevelData>) {
     height: 39,
     pos: vec(25, 100),
     z: 100,
+    tabStopIndex: 1,
     sprites: {
       idle: Resources.buttonNormal.toSprite(),
       pressed: Resources.buttonPressed.toSprite(),
@@ -135,7 +137,8 @@ function createButtons(scene: GameScene<MyLevelData>) {
       disabled: Resources.buttonNormal.toSprite(),
     },
     callback: () => {
-      if (!scene.levelImage) throw new Error("bad image");
+      console.trace("go back -> how did i get here");
+
       sndPlugin.playSound("click");
       scene.engine.goToScene("title");
     },
@@ -154,6 +157,9 @@ function createButtons(scene: GameScene<MyLevelData>) {
   };
   const gobackButton = new UISpriteButton(gobackButtonConfig);
   scene.add(gobackButton);
+
+  scene.fm?.register([hintButton, gobackButton]);
+  scene.fm?.setFocus(hintButton);
 }
 
 export function setupGameUI(scene: GameScene<MyLevelData>) {

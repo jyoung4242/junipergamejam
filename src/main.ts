@@ -38,7 +38,7 @@ for (const sound in sounds) {
   sndPlugin.loadSoundConfig(sound, sounds[sound]);
 }
 
-await game.start();
+await game.start("loader");
 // game.goToScene("game", { sceneActivationData: { difficulty: "easy" } });
 // game.goToScene("end", {
 //   sceneActivationData: {
@@ -51,4 +51,4 @@ await game.start();
 //     },
 //   },
 // });
-game.goToScene("loader");
+// game.goToScene("loader");

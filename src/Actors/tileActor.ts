@@ -89,8 +89,6 @@ export class TileActor extends Actor {
   };
 
   onAdd(): void {
-    console.log(this.id, "onadd");
-
     this.on("pointerup", this.clickHandler);
   }
 

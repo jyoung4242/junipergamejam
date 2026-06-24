@@ -60,6 +60,7 @@ export interface MyLevelData {
 }
 
 export class GameScene<T extends MyLevelData> extends Scene {
+  fm: UIFocusManager | null = null;
   //GameState
   difficulty: DifficultyLevel = "easy";
   timerSeconds: number = 0;
@@ -145,6 +146,8 @@ export class GameScene<T extends MyLevelData> extends Scene {
 
   //runs when scene is moved into
   async onActivate(ctx: SceneActivationContext<MyLevelData>) {
+    this.fm = new UIFocusManager();
+    document.addEventListener("keydown", this.tabHandler);
     this.selectedTiles = {
       first: null,
       second: null,
@@ -235,6 +238,8 @@ export class GameScene<T extends MyLevelData> extends Scene {
 
   //runs when scene is moved out of
   onDeactivate() {
+    this.fm = null;
+    document.removeEventListener("keydown", this.tabHandler);
     soundManager.stop("mainloop");
     //remove all entities
     let ents = this.entities;
@@ -244,6 +249,13 @@ export class GameScene<T extends MyLevelData> extends Scene {
       ent.kill();
     });
   }
+  tabHandler = (e: KeyboardEvent) => {
+    if (e.key === "Tab") {
+      e.preventDefault(); // stop browser focus jump
+      if (!this.fm) return;
+      this.fm.moveFocus(true);
+    }
+  };
 
   onPreUpdate(_engine: Engine, delta: number) {
     // UI update checks

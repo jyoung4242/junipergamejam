@@ -102,6 +102,10 @@ export class Loader extends DefaultSceneLoader {
     hintButton.focus();
   }
 
+  async onActivate(ctx: SceneActivationContext): Promise<void> {
+    await super.onActivate(ctx);
+  }
+
   onDeactivate(context: SceneActivationContext) {
     this.entities.forEach(ent => {
       ent.kill();
@@ -109,27 +113,13 @@ export class Loader extends DefaultSceneLoader {
   }
 
   // Display the start button after resources are loaded
-  showPlayButton(): Promise<void> {
+  override showPlayButton(): Promise<void> {
     return new Promise(resolve => {
       //get button from scene
       this.createButtons();
       if (!this.label) return;
       this.label.setText("Click Play to Begin!");
       this.label.pos.x = 250;
-      resolve();
-    });
-  }
-
-  // Handle post-load transitions
-  public onAfterLoad(_loaded: Loadable<any>[], isInitialLoad: boolean): Promise<void> {
-    return new Promise(async resolve => {
-      if (isInitialLoad) {
-        await this.showPlayButton();
-      } else {
-        Util.delay(1000, this.engine?.clock).then(() => {
-          this.engine?.goToScene("main");
-        });
-      }
       resolve();
     });
   }
