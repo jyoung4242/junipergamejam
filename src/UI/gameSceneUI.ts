@@ -99,7 +99,6 @@ function createButtons(scene: GameScene<MyLevelData>) {
       disabled: Resources.buttonNormal.toSprite(),
     },
     callback: () => {
-      console.log("adding");
       if (!scene.levelImage) throw new Error("bad image");
       sndPlugin.playSound("click");
       //Gaurd if solution still in scene

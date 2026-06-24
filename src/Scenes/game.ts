@@ -8,6 +8,7 @@ import { Signal } from "../Lib/Signals";
 import { setupGameUI } from "../UI/gameSceneUI";
 import { UIProgressBar, UISpriteProgressBar } from "../UI/progressBar";
 import { sndPlugin, soundManager } from "../main";
+import { MachineGeneration } from "../Lib/machineGen";
 
 type Rotation = 0 | 90 | 180 | 270;
 const EasyRowsCols = 3;
@@ -179,8 +180,11 @@ export class GameScene<T extends MyLevelData> extends Scene {
     this.puzzleActor.removeAllChildren();
     this.add(this.puzzleActor);
 
-    // this.camera.strategy.lockToActor(this.puzzleActor);
-    // this.camera.pos = this.puzzleActor.pos.clone().add(vec(250, 220));
+    //********************************************************* */
+    // Machine Generation
+    /* REMOVE THIS SECTION TO FALLBACK TO PLACEHOLDER IMAGE*/
+    this.levelImage = await MachineGeneration.generateImage();
+    //***********************************************************/
 
     // init puzzleState
     // based on difficulty level, determine rows and cols

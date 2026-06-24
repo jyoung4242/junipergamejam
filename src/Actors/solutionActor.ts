@@ -17,8 +17,6 @@ export class SolutionActor extends Actor {
   }
 
   onAdd(engine: Engine): void {
-    console.log("adding solution");
-
     engine.clock.schedule(() => {
       this.actions
         .fade(0.0, 1000)
