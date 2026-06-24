@@ -74,7 +74,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
     activeText: "Easy",
     textOffset: vec(0, -5),
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 18,
@@ -106,7 +106,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
     activeText: "Medium",
     textOffset: vec(0, -5),
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 18,
@@ -138,7 +138,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
     activeText: "Hard",
     textOffset: vec(0, -5),
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 18,
@@ -177,7 +177,7 @@ const addDataLabels = (panel: UISpritePanel) => {
     pos: vec(350 / 2 - 85, 5),
     text: "STEAMSPIN",
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 40,
@@ -201,7 +201,7 @@ const addDataLabels = (panel: UISpritePanel) => {
         new Line({
           start: vec(20, 60),
           end: vec(330, 60),
-          color: Color.fromHex("#233116"),
+          color: Color.fromHex("#101C00"),
           thickness: 2,
         }),
       );
@@ -222,7 +222,7 @@ const addDataLabels = (panel: UISpritePanel) => {
     Right click of mouse rotates tile 90 degrees
     `,
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 20,
@@ -241,7 +241,7 @@ class SpinningGears extends Actor {
       radius,
       z: 3,
     });
-    this.graphics.use(Resources.gear.toSprite());
+    this.graphics.use(Resources.bigGear.toSprite());
     this.graphics.current!.scale = vec(0.75, 0.75);
   }
 

@@ -61,7 +61,7 @@ const addReturnButton = (panel: UINineSlicePanel) => {
     activeText: "Play Again",
     textOffset: vec(0, -5),
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 12,
@@ -98,7 +98,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(350 / 2 - 100, 5),
     text: "PUZZLE COMPLETE",
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 30,
@@ -122,7 +122,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
         new Line({
           start: vec(20, 45),
           end: vec(330, 45),
-          color: Color.fromHex("#233116"),
+          color: Color.fromHex("#101C00"),
           thickness: 2,
         }),
       );
@@ -139,7 +139,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(50, 60),
     text: "Duration:  ",
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -159,7 +159,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(50, 100),
     text: "Clicks:  ",
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -179,7 +179,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(50, 140),
     text: "Tile Swaps:  ",
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -199,7 +199,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(50, 180),
     text: "Tile Spins:  ",
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -225,7 +225,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(160, 60),
     text: `${minutes}m : ${seconds}s : ${milliseconds}ms`,
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -245,7 +245,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(160, 100),
     text: `${stats.clicks}`,
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -265,7 +265,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(160, 140),
     text: `${stats.swaps}`,
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,
@@ -285,7 +285,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     pos: vec(160, 180),
     text: `${stats.rotations}`,
     textOptions: {
-      color: Color.fromHex("#233116"),
+      color: Color.fromHex("#101C00"),
       font: new Font({
         family: "deiselFont",
         size: 24,

@@ -9,6 +9,7 @@ import timerPanel from "./Assets/timerPanel.png";
 import buttonNormal from "./Assets/buttonNormal.png";
 import buttonPressed from "./Assets/buttonPressed.png";
 import border from "./Assets/analyticsBorder.png";
+import bigGear from "./Assets/gear.png";
 
 // bgm
 import gameLoop from "./Assets/torone-ecryme-generique-long-loop.ogg";
@@ -41,6 +42,7 @@ import sliders from "./Assets/procgen/sliders.png";
 import steam from "./Assets/procgen/steam.png";
 
 export const Resources = {
+  bigGear: new ImageSource(bigGear),
   machine1: new ImageSource(machine1),
   pbarBorder: new ImageSource(pbarBorder),
   pbarFill: new ImageSource(pbarFill),
