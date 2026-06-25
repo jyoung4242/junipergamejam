@@ -13,7 +13,7 @@ import { Loader } from "./Scenes/loader";
 const game = new Engine({
   width: 800, // the width of the canvas
   height: 600, // the height of the canvas
-  displayMode: DisplayMode.Fixed, // the display mode
+  displayMode: DisplayMode.FitScreen, // the display mode
   pixelArt: true,
   scenes: {
     loader: new Loader(Resources),
