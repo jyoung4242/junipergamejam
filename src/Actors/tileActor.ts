@@ -1,7 +1,8 @@
-import { Actor, Engine, Sprite, vec, Vector, PointerEvent, Rectangle, Color, toRadians } from "excalibur";
+import { Actor, Engine, Sprite, vec, Vector, PointerEvent, Rectangle, Color, toRadians, toDegrees } from "excalibur";
 import { TileInitData } from "../Scenes/game";
 import { Signal } from "../Lib/Signals";
 import { sndPlugin } from "../main";
+import { MoveSnapToOptions, MoveSnapToWithOptions } from "../Actions/MoveSnapTo";
 
 export const SelectState = {
   UNSELECTED: "unselected",
@@ -19,6 +20,7 @@ export class TileActor extends Actor {
   rotateSignal = new Signal("rotation");
   newPos: Vector | null = null;
   isSwapping: boolean = false;
+  debugFlag: boolean = false;
 
   clickEnable: boolean = true;
   enabled: boolean = false;
@@ -63,10 +65,12 @@ export class TileActor extends Actor {
 
   swapTile = () => {
     if (!this.newPos) throw new Error("pad vector for newpos");
+
     this.actions
-      .moveTo({ pos: this.newPos, duration: 500 })
+      .runAction(new MoveSnapToWithOptions(this, { pos: this.newPos, duration: 500, snapDistance: 5 }))
       .toPromise()
       .then(() => {
+        this.debugFlag = true;
         this.swapComplete.send();
       });
     this.selectState = "UNSELECTED";
@@ -97,7 +101,6 @@ export class TileActor extends Actor {
   }
 
   clickHandler = (evt: PointerEvent) => {
-    debugger;
     if (this.isSwapping) return;
     this.clickSignal.send();
     if (this.inWinningPosition) {
@@ -127,7 +130,8 @@ export class TileActor extends Actor {
 
   onPreUpdate(engine: Engine, elapsed: number): void {
     if (!this.inWinningPosition) {
-      if (this.positionCheck() && this.rotation == 0) {
+      const rotation = ((toDegrees(this.rotation) % 360) + 360) % 360;
+      if (this.positionCheck() && Math.abs(rotation) < 0.01) {
         this.inWinningPosition = true;
         sndPlugin.playSound("correct");
         this.actions.flash(Color.White, 1000);

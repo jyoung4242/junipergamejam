@@ -99,7 +99,7 @@ function createButtons(scene: GameScene<MyLevelData>) {
       disabled: Resources.buttonNormal.toSprite(),
     },
     callback: () => {
-      console.trace("hint");
+      // console.trace("hint");
       if (!scene.levelImage) throw new Error("bad image");
       sndPlugin.playSound("click");
       //Gaurd if solution still in scene
@@ -138,7 +138,7 @@ function createButtons(scene: GameScene<MyLevelData>) {
       disabled: Resources.buttonNormal.toSprite(),
     },
     callback: () => {
-      console.trace("go back ");
+      // console.trace("go back ");
       sndPlugin.playSound("click");
       scene.engine.goToScene("title");
     },
