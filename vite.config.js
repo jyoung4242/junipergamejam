@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import pkg from "./package.json";
+import pkg from "./package.json"; //<---- added
 
 export default defineConfig({
   base: "./",
@@ -8,6 +8,7 @@ export default defineConfig({
   },
   assetsInclude: ["**/*.png", "**/*.jpg", "**/*.svg", "**/*.tff"],
   define: {
-    __APP_VERSION__: JSON.stringify(pkg.version),
-  },
+    //  <-------- added
+    __APP_VERSION__: JSON.stringify(pkg.version), //
+  }, //
 });
