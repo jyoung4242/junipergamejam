@@ -27,11 +27,13 @@ spinning controls, aligning objects, and using the environment to create success
 ### How to Play
 
 - Use keyboard and mouse controls to interact with the game.
+  - keyboard only works for button/menu navigation
+  - mouse is primary device for game tiles
+    - left click selects tile to swap
+    - right click rotates tile for alignment
 - Spin or rotate elements to align gears, pipes, or other mechanisms.
 - Solve each puzzle by finding the right configuration and timing.
-- Complete objectives before time or move limits expire.
-
-> Placeholder: Add specific controls, objectives, and scoring details once the final game mechanics are locked in.
+- Complete objectives and attempt to beat your best time!
 
 ---
 
@@ -47,7 +49,8 @@ I built this game using **ExcaliburJS** with a focus on:
 The development process emphasized iteration: prototyping spinning mechanics, refining visual feedback, and balancing puzzle difficulty
 for a polished jam build.
 
-> Placeholder: Add a short developer diary or notes about technical choices, challenges, and tools used during the jam.
+The key consideration for a solo-developed, 7 day jame was keeping the scoping of the game tight, so that I had time to do all the
+'other' things needed for a jam, like itch page, readme, playtesting, and debugging.
 
 ---
 
@@ -73,11 +76,14 @@ Open the local URL shown by Vite to play the game in your browser.
 
 ## Asset Credits
 
-> Placeholder: Add asset credits and attribution here once finalized.
-
-- Visuals: handcrafted art and static assets
-- Audio: generated with JSFXR and custom effects
+- UI pack was used for this game by Positron on Itch.io
+  - Link: https://positron.itch.io/steampunk-fantasy-ui-pack
+- Audio (SFX): generated with JSFXR and utilizes the JSFXR plugin for excaliburJS
+  - Link: https://sfxr.me/
+- Audio (Music): music (2 looping tracks) were provided by torone on Itch.io
+  - Link: https://torone.itch.io/
 - Engine: ExcaliburJS
+  - Link: https://excaliburjs.com/
 
 ---
 
