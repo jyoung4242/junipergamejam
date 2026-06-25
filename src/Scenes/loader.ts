@@ -31,11 +31,13 @@ export class Loader extends DefaultSceneLoader {
   exImage: ImageSource;
   gear: ImageSource;
   gearActor: UIImage | null = null;
+  version: string | null = "";
 
   constructor(resources: any) {
     super(resources);
     this.exImage = new ImageSource(eximage);
     this.gear = new ImageSource(bigGear);
+    this.version = getVersionCached();
   }
 
   // Set up UI elements
@@ -132,4 +134,36 @@ export class Loader extends DefaultSceneLoader {
       this.pbar.value = percent * 100;
     }
   }
+}
+
+declare const __APP_VERSION__: string | undefined;
+let _cached: string | null = null;
+
+/** Async: fetches /package.json and caches the result. */
+export async function getVersion(): Promise<string> {
+  // Prefer the build-time constant when available.
+  if (typeof __APP_VERSION__ !== "undefined") {
+    return __APP_VERSION__;
+  }
+
+  if (_cached !== null) return _cached;
+
+  const res = await fetch("/package.json");
+  if (!res.ok) {
+    throw new Error(`[version] Failed to fetch /package.json: ${res.status} ${res.statusText}`);
+  }
+
+  const json = await res.json();
+  if (typeof json.version !== "string") {
+    throw new Error('[version] package.json is missing a "version" field.');
+  }
+
+  _cached = json.version;
+  return _cached as string;
+}
+
+/** Convenience: resolves immediately or throws if not yet available. */
+export function getVersionCached(): string | null {
+  if (typeof __APP_VERSION__ !== "undefined") return __APP_VERSION__;
+  return _cached;
 }

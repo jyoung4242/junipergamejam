@@ -144,29 +144,6 @@ export class TileActor extends Actor {
     }
   };
 
-  onPreUpdate(engine: Engine, elapsed: number): void {
-    // if (!this.inWinningPosition) {
-    //   const rotation = ((toDegrees(this.rotation) % 360) + 360) % 360;
-    //   if (this.newPositionCheck() && Math.abs(rotation) < 0.01) {
-    //     this.inWinningPosition = true;
-    //     sndPlugin.playSound("correct");
-    //     this.actions.flash(Color.White, 1000);
-    //     this.borderActor.changeState("transparent");
-    //   }
-    // } else {
-    //   if (!this.newPositionCheck()) {
-    //     const tileSize = this.tilesize; // your tile size
-    //     const currentCol = Math.round(this.pos.x / tileSize);
-    //     const currentRow = Math.round(this.pos.y / tileSize);
-    //     const winCol = Math.round(this.winningState.pos.x / tileSize);
-    //     const winRow = Math.round(this.winningState.pos.y / tileSize);
-    //     console.warn(
-    //       `[posCheck] current=(${currentCol}, ${currentRow}) winning=(${winCol}, ${winRow}) | raw pos=(${this.pos.x.toFixed(2)}, ${this.pos.y.toFixed(2)}) win pos=(${this.winningState.pos.x.toFixed(2)}, ${this.winningState.pos.y.toFixed(2)})`,
-    //     );
-    //   }
-    // }
-  }
-
   newPositionCheck() {
     const tileSize = this.tilesize; // your tile size
     const currentCol = Math.round(this.pos.x / tileSize);

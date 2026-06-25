@@ -34,7 +34,27 @@ function createLoadingLabel(scene: Scene) {
   scene.add(label);
 }
 
+function createVersionLabel(scene: Scene) {
+  let vstring = (scene as Loader).version ?? "";
+
+  const label = new UILabel({
+    name: "loadinglabel",
+    width: 100,
+    height: 20,
+    pos: vec(0, 580),
+    text: vstring,
+    textOptions: {
+      color: Color.White,
+      font: new Font({
+        size: 12,
+      }),
+    },
+  });
+  scene.add(label);
+}
+
 export function setupLoaderUI(scene: Scene) {
   createProgressBar(scene);
   createLoadingLabel(scene);
+  createVersionLabel(scene);
 }
