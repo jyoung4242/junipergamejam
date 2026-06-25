@@ -150,9 +150,9 @@ export class TileActor extends Actor {
     const currentRow = Math.round(this.pos.y / tileSize);
     const winCol = Math.round(this.winningState.pos.x / tileSize);
     const winRow = Math.round(this.winningState.pos.y / tileSize);
-    console.log(
-      `[posCheck] current=(${currentCol}, ${currentRow}) winning=(${winCol}, ${winRow}) | raw pos=(${this.pos.x.toFixed(2)}, ${this.pos.y.toFixed(2)}) win pos=(${this.winningState.pos.x.toFixed(2)}, ${this.winningState.pos.y.toFixed(2)})`,
-    );
+    // console.log(
+    //   `[posCheck] current=(${currentCol}, ${currentRow}) winning=(${winCol}, ${winRow}) | raw pos=(${this.pos.x.toFixed(2)}, ${this.pos.y.toFixed(2)}) win pos=(${this.winningState.pos.x.toFixed(2)}, ${this.winningState.pos.y.toFixed(2)})`,
+    // );
 
     return currentCol === winCol && currentRow === winRow;
   }
