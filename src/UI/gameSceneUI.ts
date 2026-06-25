@@ -104,7 +104,7 @@ function createButtons(scene: GameScene<MyLevelData>) {
       sndPlugin.playSound("click");
       //Gaurd if solution still in scene
       if (scene.entities.find(ent => ent instanceof SolutionActor)) return;
-
+      scene.hintSignal.send();
       scene.add(new SolutionActor(500, 500, scene.levelImage));
     },
     idleText: "Hint",

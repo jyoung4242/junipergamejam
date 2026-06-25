@@ -117,8 +117,9 @@ export class TileActor extends Actor {
     if (this.isSwapping) return;
     this.clickSignal.send();
     if (this.inWinningPosition) {
-      // console.log(this.pos.x, this.pos.y, this.winningState.pos.x, this.winningState.pos.y, this.rotation);
-
+      console.log(
+        `Finished Tile Stats: position: ${this.pos.x}, ${this.pos.y}, winningState: ${this.winningState.pos.x}, ${this.winningState.pos.y}, with rotation: ${this.rotation}`,
+      );
       sndPlugin.playSound("bad");
       this.borderActor.changeState("warning");
       return;

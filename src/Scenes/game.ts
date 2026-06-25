@@ -46,6 +46,7 @@ export interface PuzzleStats {
   rotations: number;
   startTime: number;
   completionTime: number;
+  hints: number;
 }
 
 interface TileSelectionState {
@@ -73,6 +74,7 @@ export class GameScene<T extends MyLevelData> extends Scene {
     rotations: 0,
     startTime: 0,
     completionTime: 0,
+    hints: 0,
   };
   levelImage: Sprite | null = null;
   levelImageDims: SourceImageDims | null = null;
@@ -88,6 +90,7 @@ export class GameScene<T extends MyLevelData> extends Scene {
   gameOverSignal: Signal = new Signal("gameover");
   rotateSignal: Signal = new Signal("rotation");
   timerIncSignal: Signal = new Signal("timerTik");
+  hintSignal: Signal = new Signal("usedHint");
 
   timerTick: number = 0;
   timerLimit: number = 1000;
@@ -124,6 +127,10 @@ export class GameScene<T extends MyLevelData> extends Scene {
           this.selectedTiles.first = null;
         }
       }
+    });
+
+    this.hintSignal.listen(() => {
+      this.puzzleStats.hints++;
     });
 
     this.clickSignal.listen(() => {

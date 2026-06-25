@@ -137,7 +137,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(50, 60),
+    pos: vec(50, 50),
     text: "Duration:  ",
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -157,7 +157,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(50, 100),
+    pos: vec(50, 90),
     text: "Clicks:  ",
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -177,7 +177,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(50, 140),
+    pos: vec(50, 130),
     text: "Tile Swaps:  ",
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -197,7 +197,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(50, 180),
+    pos: vec(50, 170),
     text: "Tile Spins:  ",
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -211,6 +211,26 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
   const rotsTitle: UILabel = new UILabel(rotsTitleConfig);
   panel.addChild(rotsTitle);
 
+  //Rotations Label
+  const hintsTitleConfig: UILabelConfig = {
+    name: "hintsTitle",
+    z: 2,
+    width: 500,
+    height: 35,
+    pos: vec(50, 210),
+    text: "Hints:  ",
+    textOptions: {
+      color: Color.fromHex("#101C00"),
+      font: new Font({
+        family: "deiselFont",
+        size: 24,
+        textAlign: TextAlign.Center,
+      }),
+    },
+  };
+  const hintsTitle: UILabel = new UILabel(hintsTitleConfig);
+  panel.addChild(hintsTitle);
+
   const duration = stats.completionTime - stats.startTime;
   const hours = Math.floor(duration / 3_600_000);
   const minutes = Math.floor((duration % 3_600_000) / 60_000);
@@ -223,7 +243,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(160, 60),
+    pos: vec(160, 50),
     text: `${minutes}m : ${seconds}s : ${milliseconds}ms`,
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -243,7 +263,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(160, 100),
+    pos: vec(160, 90),
     text: `${stats.clicks}`,
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -263,7 +283,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(160, 140),
+    pos: vec(160, 130),
     text: `${stats.swaps}`,
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -283,7 +303,7 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
     z: 2,
     width: 500,
     height: 35,
-    pos: vec(160, 180),
+    pos: vec(160, 170),
     text: `${stats.rotations}`,
     textOptions: {
       color: Color.fromHex("#101C00"),
@@ -296,4 +316,24 @@ const addDataLabels = (panel: UISpritePanel, stats: PuzzleStats) => {
   };
   const rotsData: UILabel = new UILabel(rotsDataConfig);
   panel.addChild(rotsData);
+
+  //Rotations amount
+  const hintsDataConfig: UILabelConfig = {
+    name: "hintsData",
+    z: 2,
+    width: 500,
+    height: 35,
+    pos: vec(160, 210),
+    text: `${stats.hints}`,
+    textOptions: {
+      color: Color.fromHex("#101C00"),
+      font: new Font({
+        family: "deiselFont",
+        size: 24,
+        textAlign: TextAlign.Center,
+      }),
+    },
+  };
+  const hintsData: UILabel = new UILabel(hintsDataConfig);
+  panel.addChild(hintsData);
 };
