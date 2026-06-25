@@ -52,8 +52,7 @@ for a polished jam build.
 The key consideration for a solo-developed, 7 day jame was keeping the scoping of the game tight, so that I had time to do all the
 'other' things needed for a jam, like itch page, readme, playtesting, and debugging.
 
-[!NOTE]
-
+> [!NOTE]  
 > STEAMSPIN uses my custom UIFramework for the buttons, panels, and labels! Also, it uses a custom Scene for its Loader which is a bit
 > experimental for ExcaliburJS!
 
