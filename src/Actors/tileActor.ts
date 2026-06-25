@@ -20,7 +20,6 @@ export class TileActor extends Actor {
   rotateSignal = new Signal("rotation");
   newPos: Vector | null = null;
   isSwapping: boolean = false;
-  debugFlag: boolean = false;
   tilesize: number = 0;
 
   clickEnable: boolean = true;
@@ -72,8 +71,8 @@ export class TileActor extends Actor {
       .runAction(new MoveSnapToWithOptions(this, { pos: this.newPos, duration: 500, snapDistance: 5 }))
       .toPromise()
       .then(() => {
-        this.debugFlag = true;
         this.swapComplete.send();
+        this.checkForWin();
       });
     this.selectState = "UNSELECTED";
     this.borderActor.changeState("idle");
@@ -102,11 +101,23 @@ export class TileActor extends Actor {
     this.off("pointerup", this.clickHandler);
   }
 
+  checkForWin() {
+    if (!this.inWinningPosition) {
+      const rotation = ((toDegrees(this.rotation) % 360) + 360) % 360;
+      if (this.newPositionCheck() && Math.abs(rotation) < 0.01) {
+        this.inWinningPosition = true;
+        sndPlugin.playSound("correct");
+        this.actions.flash(Color.White, 1000);
+        this.borderActor.changeState("transparent");
+      }
+    }
+  }
+
   clickHandler = (evt: PointerEvent) => {
     if (this.isSwapping) return;
     this.clickSignal.send();
     if (this.inWinningPosition) {
-      console.log(this.pos.x, this.pos.y, this.winningState.pos.x, this.winningState.pos.y, this.rotation);
+      // console.log(this.pos.x, this.pos.y, this.winningState.pos.x, this.winningState.pos.y, this.rotation);
 
       sndPlugin.playSound("bad");
       this.borderActor.changeState("warning");
@@ -126,6 +137,7 @@ export class TileActor extends Actor {
           .rotateBy({ angleRadiansOffset: toRadians(90), duration: 500 })
           .toPromise()
           .then(() => {
+            this.checkForWin();
             this.clickEnable = true;
           });
       }
@@ -133,15 +145,26 @@ export class TileActor extends Actor {
   };
 
   onPreUpdate(engine: Engine, elapsed: number): void {
-    if (!this.inWinningPosition) {
-      const rotation = ((toDegrees(this.rotation) % 360) + 360) % 360;
-      if (this.newPositionCheck() && Math.abs(rotation) < 0.01) {
-        this.inWinningPosition = true;
-        sndPlugin.playSound("correct");
-        this.actions.flash(Color.White, 1000);
-        this.borderActor.changeState("transparent");
-      }
-    }
+    // if (!this.inWinningPosition) {
+    //   const rotation = ((toDegrees(this.rotation) % 360) + 360) % 360;
+    //   if (this.newPositionCheck() && Math.abs(rotation) < 0.01) {
+    //     this.inWinningPosition = true;
+    //     sndPlugin.playSound("correct");
+    //     this.actions.flash(Color.White, 1000);
+    //     this.borderActor.changeState("transparent");
+    //   }
+    // } else {
+    //   if (!this.newPositionCheck()) {
+    //     const tileSize = this.tilesize; // your tile size
+    //     const currentCol = Math.round(this.pos.x / tileSize);
+    //     const currentRow = Math.round(this.pos.y / tileSize);
+    //     const winCol = Math.round(this.winningState.pos.x / tileSize);
+    //     const winRow = Math.round(this.winningState.pos.y / tileSize);
+    //     console.warn(
+    //       `[posCheck] current=(${currentCol}, ${currentRow}) winning=(${winCol}, ${winRow}) | raw pos=(${this.pos.x.toFixed(2)}, ${this.pos.y.toFixed(2)}) win pos=(${this.winningState.pos.x.toFixed(2)}, ${this.winningState.pos.y.toFixed(2)})`,
+    //     );
+    //   }
+    // }
   }
 
   newPositionCheck() {

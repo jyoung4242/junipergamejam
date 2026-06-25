@@ -656,8 +656,6 @@ export class UISpriteButton
    * @param engine - The engine instance.
    */
   onRemove(engine: Engine): void {
-    console.log("remove");
-
     this.off("pointerenter", this.onHover);
     this.off("pointerleave", this.onUnhover);
     this.off("pointerdown", this.onPointerDown);
@@ -667,8 +665,6 @@ export class UISpriteButton
   }
 
   onPreKill(scene: Scene): void {
-    console.log("remove");
-
     this.off("pointerenter", this.onHover);
     this.off("pointerleave", this.onUnhover);
     this.off("pointerdown", this.onPointerDown);

@@ -80,8 +80,6 @@ export class Loader extends DefaultSceneLoader {
         disabled: Resources.buttonNormal.toSprite(),
       },
       callback: () => {
-        console.log("loader ");
-
         sndPlugin.playSound("click");
         this.engine.goToScene("title");
       },
@@ -113,7 +111,6 @@ export class Loader extends DefaultSceneLoader {
       ent.kill();
     });
     this.button = null;
-    console.log("onDeac");
   }
 
   // Display the start button after resources are loaded
