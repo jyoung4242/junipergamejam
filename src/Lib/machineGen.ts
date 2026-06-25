@@ -271,7 +271,7 @@ export class MachineGeneration {
     // #region heights
     // determine machine height for each base tile
     let heights = Array.from({ length: numBaseTiles }, () => {
-      return rng.integer(2, 7);
+      return rng.integer(3, 8);
     });
     // #endregion heights
 
