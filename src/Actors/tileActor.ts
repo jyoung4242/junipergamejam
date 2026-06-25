@@ -21,6 +21,7 @@ export class TileActor extends Actor {
   newPos: Vector | null = null;
   isSwapping: boolean = false;
   debugFlag: boolean = false;
+  tilesize: number = 0;
 
   clickEnable: boolean = true;
   enabled: boolean = false;
@@ -42,6 +43,7 @@ export class TileActor extends Actor {
     this.scalingFactor = vec(config.scaleFactor, config.scaleFactor);
     this.borderActor = new BorderActor(config.width, config.height);
     this.addChild(this.borderActor);
+    this.tilesize = config.width;
   }
 
   onInitialize(engine: Engine): void {
@@ -104,6 +106,8 @@ export class TileActor extends Actor {
     if (this.isSwapping) return;
     this.clickSignal.send();
     if (this.inWinningPosition) {
+      console.log(this.pos.x, this.pos.y, this.winningState.pos.x, this.winningState.pos.y, this.rotation);
+
       sndPlugin.playSound("bad");
       this.borderActor.changeState("warning");
       return;
@@ -131,13 +135,26 @@ export class TileActor extends Actor {
   onPreUpdate(engine: Engine, elapsed: number): void {
     if (!this.inWinningPosition) {
       const rotation = ((toDegrees(this.rotation) % 360) + 360) % 360;
-      if (this.positionCheck() && Math.abs(rotation) < 0.01) {
+      if (this.newPositionCheck() && Math.abs(rotation) < 0.01) {
         this.inWinningPosition = true;
         sndPlugin.playSound("correct");
         this.actions.flash(Color.White, 1000);
         this.borderActor.changeState("transparent");
       }
     }
+  }
+
+  newPositionCheck() {
+    const tileSize = this.tilesize; // your tile size
+    const currentCol = Math.round(this.pos.x / tileSize);
+    const currentRow = Math.round(this.pos.y / tileSize);
+    const winCol = Math.round(this.winningState.pos.x / tileSize);
+    const winRow = Math.round(this.winningState.pos.y / tileSize);
+    console.log(
+      `[posCheck] current=(${currentCol}, ${currentRow}) winning=(${winCol}, ${winRow}) | raw pos=(${this.pos.x.toFixed(2)}, ${this.pos.y.toFixed(2)}) win pos=(${this.winningState.pos.x.toFixed(2)}, ${this.winningState.pos.y.toFixed(2)})`,
+    );
+
+    return currentCol === winCol && currentRow === winRow;
   }
 
   positionCheck(): boolean {
