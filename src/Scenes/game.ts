@@ -252,6 +252,9 @@ export class GameScene<T extends MyLevelData> extends Scene {
     this.puzzleStats.startTime = Date.now();
     this.timerTick = 0;
     this.timerEnable = true;
+
+    //do initial winning check on each tile
+    this.actors.filter(act => act instanceof TileActor).forEach(tile => tile.checkForWin());
   }
 
   //runs when scene is moved out of
