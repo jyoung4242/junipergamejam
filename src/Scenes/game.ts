@@ -91,6 +91,7 @@ export class GameScene<T extends MyLevelData> extends Scene {
   rotateSignal: Signal = new Signal("rotation");
   timerIncSignal: Signal = new Signal("timerTik");
   hintSignal: Signal = new Signal("usedHint");
+  tileWinSignal = new Signal("tilewin");
 
   timerTick: number = 0;
   timerLimit: number = 1000;
@@ -139,6 +140,16 @@ export class GameScene<T extends MyLevelData> extends Scene {
 
     this.rotateSignal.listen(() => {
       this.puzzleStats.rotations++;
+    });
+
+    this.tileWinSignal.listen((params: any) => {
+      const [tile] = params.detail.params;
+      if (this.selectedTiles.first == tile || this.selectedTiles.second == tile) {
+        this.selectedTiles = {
+          first: null,
+          second: null,
+        };
+      }
     });
 
     this.gameOverSignal.listen(() => {

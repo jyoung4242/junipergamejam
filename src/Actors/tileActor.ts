@@ -18,6 +18,7 @@ export class TileActor extends Actor {
   swapComplete = new Signal("swapComplete");
   clickSignal = new Signal("clickSignal");
   rotateSignal = new Signal("rotation");
+  tileWinSignal = new Signal("tilewin");
   newPos: Vector | null = null;
   isSwapping: boolean = false;
   tilesize: number = 0;
@@ -108,7 +109,7 @@ export class TileActor extends Actor {
         console.log(
           `Win check confirmed: rotation: ${this.rotation}, position: ${this.pos.x},${this.pos.y}, winning state: ${this.winningState.pos.x},${this.winningState.pos.y}`,
         );
-
+        this.tileWinSignal.send([this]);
         this.inWinningPosition = true;
         sndPlugin.playSound("correct");
         this.actions.flash(Color.White, 1000);
