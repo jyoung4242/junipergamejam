@@ -140,7 +140,7 @@ export class TileActor extends Actor {
         this.clickEnable = false;
         sndPlugin.playSound("rotate");
         this.actions
-          .rotateBy({ angleRadiansOffset: toRadians(90), duration: 500 })
+          .rotateBy({ angleRadiansOffset: toRadians(90), duration: 250 })
           .toPromise()
           .then(() => {
             this.checkForWin();

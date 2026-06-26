@@ -10,13 +10,15 @@ import buttonNormal from "./Assets/buttonNormal.png";
 import buttonPressed from "./Assets/buttonPressed.png";
 import border from "./Assets/analyticsBorder.png";
 import bigGear from "./Assets/gear.png";
+import UIhelp from "./Assets/UI helper.png";
 
 // bgm
 import gameLoop from "./Assets/torone-ecryme-generique-long-loop.ogg";
 import endLoop from "./Assets/torone-ecryme-loop-04-dark-magic.mp3";
 
 //procgen
-import background from "./Assets/procgen/background.png";
+// import background from "./Assets/procgen/background.png";
+import background from "./Assets/procgen/newbackground.png";
 import tileset from "./Assets/procgen/machine tileset.png";
 
 //procgen accessories
@@ -55,6 +57,7 @@ export const Resources = {
   endLoop: new Sound({ paths: [endLoop], loop: true }),
   border: new ImageSource(border),
   gear: new ImageSource(gear),
+  uihelp: new ImageSource(UIhelp),
   // procgen
   tilset: new ImageSource(tileset),
   background: new ImageSource(background),

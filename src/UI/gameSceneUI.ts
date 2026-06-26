@@ -8,6 +8,7 @@ import { UISpriteButton, UISpriteButtonConfig } from "./uiButton";
 import { sndPlugin } from "../main";
 import { SolutionActor } from "../Actors/solutionActor";
 import { GameScene, MyLevelData } from "../Scenes/game";
+import { UIImage, UIImageConfig } from "./uiImage";
 
 function createProgressBar(scene: Scene) {
   const pBarconfig: UISpriteProgressBarConfig = {
@@ -162,8 +163,24 @@ function createButtons(scene: GameScene<MyLevelData>) {
   scene.fm?.setFocus(hintButton);
 }
 
+function createUIHelp(scene: GameScene<MyLevelData>) {
+  let config: UIImageConfig = {
+    name: "help",
+    width: 75,
+    height: 110,
+    pos: vec(25, 300),
+    image: Resources.uihelp,
+    z: 100,
+  };
+
+  let image = new UIImage(config);
+  image.scale = vec(1.5, 1.5);
+  scene.add(image);
+}
+
 export function setupGameUI(scene: GameScene<MyLevelData>) {
   createProgressBar(scene);
   createTimer(scene);
   createButtons(scene);
+  createUIHelp(scene);
 }

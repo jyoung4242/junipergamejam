@@ -11,3 +11,5 @@ Looping audio:torone-ecryme-generique-long-loop
 Ending audio: torone-ecryme-loop-04-dark-magic
 
 https://torone.itch.io/
+
+mouse icons: 'image: Flaticon.com'. This cover has been designed using resources from Flaticon.com
