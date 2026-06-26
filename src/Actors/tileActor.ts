@@ -204,7 +204,7 @@ export class BorderActor extends Actor {
       this.actions
         .delay(1000)
         .fade(0.0, 500)
-        .callMethod(() => this.changeState("idle"))
+        .callMethod(() => this.changeState("transparent"))
         .fade(1.0, 0.3);
     } else if (this.selected == "transparent") {
       this.graphics.hide();
