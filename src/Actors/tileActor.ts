@@ -112,7 +112,7 @@ export class TileActor extends Actor {
         this.tileWinSignal.send([this]);
         this.inWinningPosition = true;
         sndPlugin.playSound("correct");
-        this.actions.flash(Color.White, 1000);
+        this.actions.flash(Color.White, 500);
         this.borderActor.changeState("transparent");
       }
     }
