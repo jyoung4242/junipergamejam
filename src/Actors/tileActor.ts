@@ -1,8 +1,10 @@
-import { Actor, Engine, Sprite, vec, Vector, PointerEvent, Rectangle, Color, toRadians, toDegrees } from "excalibur";
+import { Actor, Engine, Sprite, vec, Vector, PointerEvent, Rectangle, Color, toRadians, toDegrees, ScheduleId } from "excalibur";
 import { TileInitData } from "../Scenes/game";
 import { Signal } from "../Lib/Signals";
 import { sndPlugin } from "../main";
-import { MoveSnapToOptions, MoveSnapToWithOptions } from "../Actions/MoveSnapTo";
+import { MoveSnapToWithOptions } from "../Actions/MoveSnapTo";
+
+const TAP_TIMEOUT_PERIOD = 400;
 
 export const SelectState = {
   UNSELECTED: "unselected",
@@ -31,6 +33,9 @@ export class TileActor extends Actor {
     pos: vec(0, 0),
   };
   inWinningPosition: boolean = false;
+
+  private _longPressFired: boolean = false;
+  private _longPressTimer: ScheduleId | undefined = undefined;
 
   constructor(config: TileInitData) {
     super({
@@ -95,11 +100,15 @@ export class TileActor extends Actor {
   };
 
   onAdd(): void {
+    this.on("pointerdown", this.holdHandler);
     this.on("pointerup", this.clickHandler);
+    this.on("pointercancel", this.cancelLongPress);
   }
 
   onRemove(): void {
     this.off("pointerup", this.clickHandler);
+    this.off("pointerdown", this.holdHandler);
+    this.off("pointercancel", this.cancelLongPress);
   }
 
   checkForWin() {
@@ -118,6 +127,39 @@ export class TileActor extends Actor {
     }
   }
 
+  holdHandler = (evt: PointerEvent) => {
+    if (this.isSwapping) return;
+    if (this.inWinningPosition) return;
+
+    if (evt.button === "Left") {
+      this._longPressFired = false;
+      this._longPressTimer = this.scene?.engine.clock.schedule(() => {
+        this._longPressFired = true;
+        this.rotateTile();
+      }, TAP_TIMEOUT_PERIOD);
+    }
+  };
+
+  cancelLongPress = () => {
+    if (this._longPressTimer) {
+      this.scene?.engine.clock.clearSchedule(this._longPressTimer);
+      this._longPressTimer = undefined;
+    }
+  };
+
+  rotateTile = () => {
+    this.rotateSignal.send();
+    this.clickEnable = false;
+    sndPlugin.playSound("rotate");
+    this.actions
+      .rotateBy({ angleRadiansOffset: toRadians(90), duration: 250 })
+      .toPromise()
+      .then(() => {
+        this.checkForWin();
+        this.clickEnable = true;
+      });
+  };
+
   clickHandler = (evt: PointerEvent) => {
     if (this.isSwapping) return;
     this.clickSignal.send();
@@ -129,25 +171,27 @@ export class TileActor extends Actor {
       this.borderActor.changeState("warning");
       return;
     }
-    if (evt.button == "Left") {
-      sndPlugin.playSound("tileselect");
-      this.toggle();
 
-      this.tileSignal.send([this, this.selectState]);
-    } else if (evt.button == "Right") {
-      if (this.clickEnable) {
-        this.rotateSignal.send();
-        this.clickEnable = false;
-        sndPlugin.playSound("rotate");
-        this.actions
-          .rotateBy({ angleRadiansOffset: toRadians(90), duration: 250 })
-          .toPromise()
-          .then(() => {
-            this.checkForWin();
-            this.clickEnable = true;
-          });
-      }
+    if (this.clickEnable && evt.button == "Right") {
+      this.cancelLongPress();
+      this.rotateTile();
     }
+
+    if (this.clickEnable && evt.button == "Left") {
+      if (this._longPressFired) {
+        // Long press already handled in the timer — don't also select
+        this.cancelLongPress();
+        return;
+      }
+      this.cancelLongPress();
+      this.handleTap();
+    }
+  };
+
+  handleTap = () => {
+    sndPlugin.playSound("tileselect");
+    this.toggle();
+    this.tileSignal.send([this, this.selectState]);
   };
 
   newPositionCheck() {
