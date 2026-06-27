@@ -530,7 +530,6 @@ export class UISpriteProgressBar extends DisplayUIComponent<UISpriteProgressBarC
     if (clamped !== this._value) {
       this._value = clamped;
       const percent = this.percent;
-
       this.emitter.emit("UIProgressBarChanged", {
         name: this.name,
         target: this,

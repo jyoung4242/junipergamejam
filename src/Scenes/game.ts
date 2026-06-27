@@ -263,13 +263,12 @@ export class GameScene<T extends MyLevelData> extends Scene {
     document.removeEventListener("keydown", this.tabHandler);
     soundManager.stop("mainloop");
     //remove all entities
-    let ents = this.entities;
+
     if (this.puzzleActor) this.remove(this.puzzleActor);
     this.puzzleActor = null;
-    ents.forEach((ent: Entity) => {
-      ent.kill();
-    });
+    this.clear();
   }
+
   tabHandler = (e: KeyboardEvent) => {
     if (e.key === "Tab") {
       e.preventDefault(); // stop browser focus jump

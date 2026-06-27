@@ -31,9 +31,6 @@ export class TitleScene extends Scene {
 
   onDeactivate(context: SceneActivationContext) {
     document.removeEventListener("keydown", this.tabHandler);
-    let ents = this.entities;
-    ents.forEach((ent: Entity) => {
-      ent.kill();
-    });
+    this.clear();
   }
 }

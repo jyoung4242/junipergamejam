@@ -109,9 +109,7 @@ export class Loader extends DefaultSceneLoader {
   }
 
   onDeactivate(context: SceneActivationContext) {
-    this.entities.forEach(ent => {
-      ent.kill();
-    });
+    this.clear();
     this.button = null;
   }
 

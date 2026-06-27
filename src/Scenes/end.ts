@@ -25,9 +25,10 @@ export class EndGameScene<T extends PuzzleStats> extends Scene {
 
   onDeactivate(context: SceneActivationContext) {
     soundManager.stop("endloop");
-    let uiElements = this.entities;
-    uiElements.forEach((el: Entity) => {
-      el.kill();
-    });
+    // let uiElements = this.entities;
+    // uiElements.forEach((el: Entity) => {
+    //   el.kill();
+    // });
+    this.clear();
   }
 }
